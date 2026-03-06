@@ -1,0 +1,869 @@
+{
+	"info": {
+		"_postman_id": "fc12123d-0c9f-441a-8023-f2bed175f623",
+		"name": "Locallink Requests",
+		"description": "Locallink API documentation, to start using locallink an inital pairing needs to be performed. The authorization header token is then passed in with all following requests.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12635009"
+	},
+	"item": [
+		{
+			"name": "Valid PairRequest",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"followRedirects": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "idempotencyKey",
+						"value": "{{$guid}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{address}}/locallink/1.0.0/pair?tid={{tid}}&pairingCode=3499",
+					"protocol": "https",
+					"host": [
+						"{{address}}"
+					],
+					"path": [
+						"locallink",
+						"1.0.0",
+						"pair"
+					],
+					"query": [
+						{
+							"key": "tid",
+							"value": "{{tid}}"
+						},
+						{
+							"key": "pairingCode",
+							"value": "3499"
+						}
+					]
+				},
+				"description": "Request to perform the initial pairing, will return a 200 response upon success with the following JSON:\n\n``` json\n{\n    \"authToken\": \"9543623770051381\"\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "Valid Post Request(Sale)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"name": "Content-Type",
+						"type": "text"
+					},
+					{
+						"key": "idempotencyKey",
+						"value": "{{$guid}}",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "disablePrinting",
+						"value": "true",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"transType\": \"SALE\",\r\n  \"amountTrans\": 1000,\r\n  \"reference\": \"TEST CARD\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{address}}/locallink/1.0.0/transaction?tid={{tid}}&disablePrinting=false",
+					"protocol": "https",
+					"host": [
+						"{{address}}"
+					],
+					"path": [
+						"locallink",
+						"1.0.0",
+						"transaction"
+					],
+					"query": [
+						{
+							"key": "tid",
+							"value": "{{tid}}"
+						},
+						{
+							"key": "disablePrinting",
+							"value": "false"
+						}
+					]
+				},
+				"description": "Initiate a transaction request for the given terminal\n\n**transType** \\- **SALE, REFUND, PREAUTH**\n\n200 returned if transaction is started.\n\n400 returnes if failed to start transaction."
+			},
+			"response": []
+		},
+		{
+			"name": "Valid Post Request(Refund)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"name": "Content-Type",
+						"type": "text"
+					},
+					{
+						"key": "idempotencyKey",
+						"value": "{{$guid}}",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "disablePrinting",
+						"value": "true",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"transType\": \"REFUND\",\r\n  \"amountTrans\": 1000,\r\n  \"reference\": \"TEST CARD\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{address}}/locallink/1.0.0/transaction?tid={{tid}}&disablePrinting=false",
+					"protocol": "https",
+					"host": [
+						"{{address}}"
+					],
+					"path": [
+						"locallink",
+						"1.0.0",
+						"transaction"
+					],
+					"query": [
+						{
+							"key": "tid",
+							"value": "{{tid}}"
+						},
+						{
+							"key": "disablePrinting",
+							"value": "false"
+						}
+					]
+				},
+				"description": "Initiate a transaction request for the given terminal\n\n**transType** \\- **SALE, REFUND, PREAUTH**\n\n200 returned if transaction is started.\n\n400 returnes if failed to start transaction."
+			},
+			"response": []
+		},
+		{
+			"name": "Valid Post Request(Cashback)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"name": "Content-Type",
+						"type": "text"
+					},
+					{
+						"key": "idempotencyKey",
+						"value": "{{$guid}}",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "disablePrinting",
+						"value": "true",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"transType\": \"CASHBACK\",\r\n  \"amountTrans\": 1000,\r\n  \"amountCashback\":500,\r\n  \"reference\": \"TEST CARD\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{address}}/locallink/1.0.0/transaction?tid={{tid}}&disablePrinting=false",
+					"protocol": "https",
+					"host": [
+						"{{address}}"
+					],
+					"path": [
+						"locallink",
+						"1.0.0",
+						"transaction"
+					],
+					"query": [
+						{
+							"key": "tid",
+							"value": "{{tid}}"
+						},
+						{
+							"key": "disablePrinting",
+							"value": "false"
+						}
+					]
+				},
+				"description": "Initiate a transaction request for the given terminal\n\n**transType** \\- **SALE, REFUND, PREAUTH**\n\n200 returned if transaction is started.\n\n400 returnes if failed to start transaction."
+			},
+			"response": []
+		},
+		{
+			"name": "Valid Post Request(Pre-auth)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"name": "Content-Type",
+						"type": "text"
+					},
+					{
+						"key": "idempotencyKey",
+						"value": "{{$guid}}",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "disablePrinting",
+						"value": "true",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"transType\": \"SALE\",\r\n  \"amountTrans\": 1000,\r\n  \"reference\": \"TEST CARD\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{address}}/locallink/1.0.0/transaction?tid={{tid}}&disablePrinting=false",
+					"protocol": "https",
+					"host": [
+						"{{address}}"
+					],
+					"path": [
+						"locallink",
+						"1.0.0",
+						"transaction"
+					],
+					"query": [
+						{
+							"key": "tid",
+							"value": "{{tid}}"
+						},
+						{
+							"key": "disablePrinting",
+							"value": "false"
+						}
+					]
+				},
+				"description": "Initiate a transaction request for the given terminal\n\n**transType** \\- **SALE, REFUND, PREAUTH**\n\n200 returned if transaction is started.\n\n400 returnes if failed to start transaction."
+			},
+			"response": []
+		},
+		{
+			"name": "Valid Post Request(Completion)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"name": "Content-Type",
+						"type": "text"
+					},
+					{
+						"key": "idempotencyKey",
+						"value": "{{$guid}}",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "disablePrinting",
+						"value": "true",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"transType\": \"COMPLETION\",\r\n  \"amountTrans\": 50000,\r\n  \"reference\": \"TEST CARD\",\r\n  \"firstSix\": \"541333\",\r\n  \"lastFour\": \"0036\",\r\n  \"authCode\": \"932513\",\r\n  \"messageId\": \"3\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{address}}/locallink/1.0.0/transaction?tid={{tid}}&disablePrinting=false",
+					"protocol": "https",
+					"host": [
+						"{{address}}"
+					],
+					"path": [
+						"locallink",
+						"1.0.0",
+						"transaction"
+					],
+					"query": [
+						{
+							"key": "tid",
+							"value": "{{tid}}"
+						},
+						{
+							"key": "disablePrinting",
+							"value": "false"
+						}
+					]
+				},
+				"description": "Initiate a transaction request for the given terminal\n\n**transType** \\- **SALE, REFUND, PREAUTH**\n\n200 returned if transaction is started.\n\n400 returnes if failed to start transaction."
+			},
+			"response": []
+		},
+		{
+			"name": "Approval request",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"name": "Content-Type",
+						"type": "text"
+					},
+					{
+						"key": "idempotencyKey",
+						"value": "{{$guid}}",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "disablePrinting",
+						"value": "true",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"result\": \"DECLINED\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{address}}/locallink/1.0.0/result?tid={{tid}}&uti=900e4b44-bb98-490e-ac2f-90b6d86f1c47",
+					"protocol": "https",
+					"host": [
+						"{{address}}"
+					],
+					"path": [
+						"locallink",
+						"1.0.0",
+						"result"
+					],
+					"query": [
+						{
+							"key": "tid",
+							"value": "{{tid}}"
+						},
+						{
+							"key": "uti",
+							"value": "900e4b44-bb98-490e-ac2f-90b6d86f1c47"
+						}
+					]
+				},
+				"description": "Approve a custom gift card sale - this endpoint is only relevant if you want to support some custom card types where you performe the authorization yourself and send the approve/decline result to the terminal."
+			},
+			"response": []
+		},
+		{
+			"name": "Display line update",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"name": "Content-Type",
+						"type": "text"
+					},
+					{
+						"key": "idempotencyKey",
+						"value": "{{$guid}}",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "disablePrinting",
+						"value": "true",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n    \"text\": \"Tomato\",\r\n    \"amount\": 279\r\n    },\r\n    {\r\n    \"text\": \"Nocco\",\r\n    \"amount\": 279\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{address}}/locallink/1.0.0/display?tid={{tid}}",
+					"protocol": "https",
+					"host": [
+						"{{address}}"
+					],
+					"path": [
+						"locallink",
+						"1.0.0",
+						"display"
+					],
+					"query": [
+						{
+							"key": "tid",
+							"value": "{{tid}}"
+						}
+					]
+				},
+				"description": "Show scanned lines on terminal, this shows scanned items on the terminal. Takes a JSON array with the values."
+			},
+			"response": []
+		},
+		{
+			"name": "Valid GetRequest",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "idempotencyKey",
+						"value": "{{$guid}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{address}}/locallink/1.0.0/transaction?tid={{tid}}&uti=c3de9bd9-d69c-402d-aba2-905fc43e6644",
+					"protocol": "https",
+					"host": [
+						"{{address}}"
+					],
+					"path": [
+						"locallink",
+						"1.0.0",
+						"transaction"
+					],
+					"query": [
+						{
+							"key": "tid",
+							"value": "{{tid}}"
+						},
+						{
+							"key": "uti",
+							"value": "c3de9bd9-d69c-402d-aba2-905fc43e6644"
+						}
+					]
+				},
+				"description": "Retrieve transaction status for the given UTI.\n\nReturns a 400 if no transaction exists for the given UTI.\n\nReturns a 200 with the transaction status if the transaction is in progress:\n\n``` json\n{\n  \"statusDescription\": \"Transaction started\"\n}\n\n ```\n\nReturns a 200 with the transaction result, if the transaction is finished:\n\n``` json\n{\n    \"appName\": \"4D4320435245444954\",\n    \"applicationId\": \"A0000000041010\",\n    \"authCode\": \"\",\n    \"cardholderReceipt\": \"Custom receipt JSON\",\n    \"cardholderVerificationMethod\": \"CVM_NO_CVM\",\n    \"currencyCode\": \"352\",\n    \"dccAmount\": 0,\n    \"dccCommissionAmount\": 0,\n    \"dccExchangeRate\": 0.0,\n    \"dccTransaction\": false,\n    \"id\": 1,\n    \"isCustomCardData\": false,\n    \"merchantId\": \"800573916121001\",\n    \"merchantReceipt\": \"Custom receipt JSON\",\n    \"messageId\": 162,\n    \"primaryAccountNumber\": \"541333******0036\",\n    \"signature\": false,\n    \"statuses\": \"[\\\"Transaction started\\\",\\\"Contactless card read\\\",\\\"Transaction declined\\\",\\\"Transaction finished\\\"]\",\n    \"terminalId\": \"34550576\",\n    \"tipAmount\": 0,\n    \"totalAmount\": \"500000\",\n    \"transApproved\": false,\n    \"transCancelled\": false,\n    \"transactionDate\": \"Dec 12, 2023 10:45:13 AM\",\n    \"transactionResponse\": \"97\",\n    \"transactionSource\": \"PICC\",\n    \"transactionType\": \"SALE\",\n    \"uti\": \"fcdaa106-e046-403f-ae12-5fc145c68130\",\n    \"voided\": false\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "Valid Post Request(Reversal)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"name": "Content-Type",
+						"type": "text"
+					},
+					{
+						"key": "idempotencyKey",
+						"value": "{{$guid}}",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "disablePrinting",
+						"value": "true",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"uti\": \"152451f1-a1fd-4575-9194-2382448b6ea3\",\r\n    \"transType\": \"REVERSAL\"\r\n}"
+				},
+				"url": {
+					"raw": "https://{{address}}/locallink/1.0.0/transaction?tid={{tid}}&disablePrinting=false",
+					"protocol": "https",
+					"host": [
+						"{{address}}"
+					],
+					"path": [
+						"locallink",
+						"1.0.0",
+						"transaction"
+					],
+					"query": [
+						{
+							"key": "tid",
+							"value": "{{tid}}"
+						},
+						{
+							"key": "disablePrinting",
+							"value": "false"
+						}
+					]
+				},
+				"description": "Request to reverse a transaction. Takes"
+			},
+			"response": []
+		},
+		{
+			"name": "Valid DeleteRequest",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"name": "Content-Type",
+						"type": "text"
+					},
+					{
+						"key": "idempotencyKey",
+						"value": "{{$guid}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{address}}/locallink/1.0.0/transaction?tid={{tid}}",
+					"protocol": "https",
+					"host": [
+						"{{address}}"
+					],
+					"path": [
+						"locallink",
+						"1.0.0",
+						"transaction"
+					],
+					"query": [
+						{
+							"key": "tid",
+							"value": "{{tid}}"
+						}
+					]
+				},
+				"description": "Requst to cancel an ongoing transaction. Returns a 200 if transaction cancelled, 400 if not possible to cancel transaction or no transaction is ongoing."
+			},
+			"response": []
+		},
+		{
+			"name": "Valid StatusRequest",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"name": "Content-Type",
+						"type": "text"
+					},
+					{
+						"key": "idempotencyKey",
+						"value": "{{$guid}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{address}}/locallink/1.0.0/status?tid={{tid}}",
+					"protocol": "https",
+					"host": [
+						"{{address}}"
+					],
+					"path": [
+						"locallink",
+						"1.0.0",
+						"status"
+					],
+					"query": [
+						{
+							"key": "tid",
+							"value": "{{tid}}"
+						}
+					]
+				},
+				"description": "Check the status of locallink server\n\n``` json\n{\n    \"status\":\"TERMINAL_BUSY\" // Terminal is busy and cannot receive transactions.\n    \"status\":\"TERMINAL_AVAILABLE\" // Terminal is available and can receive transactions\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "Valid XReport request",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"name": "Content-Type",
+						"type": "text"
+					},
+					{
+						"key": "idempotencyKey",
+						"value": "{{$guid}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{address}}/locallink/1.0.0/report?tid={{tid}}&disablePrinting=true&reportType=XReport",
+					"protocol": "https",
+					"host": [
+						"{{address}}"
+					],
+					"path": [
+						"locallink",
+						"1.0.0",
+						"report"
+					],
+					"query": [
+						{
+							"key": "tid",
+							"value": "{{tid}}"
+						},
+						{
+							"key": "disablePrinting",
+							"value": "true"
+						},
+						{
+							"key": "reportType",
+							"value": "XReport"
+						}
+					]
+				},
+				"description": "Endpoint called to received the total sales so far for the day.\n\nResponse code 200 when successful and 400 otherwise. Succesful response body has the following format:\n\n``` json\n{\n    \"totalSales\": 15000\n    \"totalRefunds\": 500\n    \"totalTip\": 0\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "Valid ZReport request",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"name": "Content-Type",
+						"type": "text"
+					},
+					{
+						"key": "idempotencyKey",
+						"value": "{{$guid}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{address}}/locallink/1.0.0/report?tid={{tid}}&disablePrinting=true&reportType=ZReport",
+					"protocol": "https",
+					"host": [
+						"{{address}}"
+					],
+					"path": [
+						"locallink",
+						"1.0.0",
+						"report"
+					],
+					"query": [
+						{
+							"key": "tid",
+							"value": "{{tid}}"
+						},
+						{
+							"key": "disablePrinting",
+							"value": "true"
+						},
+						{
+							"key": "reportType",
+							"value": "ZReport"
+						}
+					]
+				},
+				"description": "Endpoint called to send end of day report.\n\n200 if EOD report sent successfully.\n\n400 if EOD report failed.\n\n``` json\n{\n    \"result\": \"\" // String containing the total sales and refund\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "Print request",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"name": "Content-Type",
+						"type": "text"
+					},
+					{
+						"key": "idempotencyKey",
+						"value": "{{$guid}}",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "disablePrinting",
+						"value": "true",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"data\": [[\"EINTAK SÖLUAÐILA\",\"5\",\"C\",\"B\"],[],[\"Nocco store\",\"5\",\"L\",\"B\"],[\"Testing\",\"5\",\"L\",\"B\"],[\"A920pro\",\"5\",\"L\",\"B\"],[],[\"06/11/23\",\"13:04\",\"5\",\"S\",\"N\"],[\"MC CREDIT\",\"9\",\"L\",\"I\"],[\"541333******0036\",\"5\",\"L\",\"N\"],[],[\"HEIMILAÐ - 285466\",\"5\",\"C\",\"B\"],[],[],[],[\"SALA\",\"5\",\"C\",\"N\"],[\"Amount\",\"9\",\"C\",\"B\"],[\"5.000 ISK\",\"9\",\"C\",\"B\"],[\"Engin staðfesting\",\"5\",\"L\",\"N\"],[\"SNERTILAUST\",\"5\",\"L\",\"N\"],[\"Númer: 1414\",\"1\",\"L\",\"N\"],[\"800573916121001\",\"34550576\",\"1\",\"S\",\"N\"],[\"A0000000041010\",\"1\",\"L\",\"N\"],[]]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{address}}/locallink/1.0.0/print?tid={{tid}}",
+					"protocol": "https",
+					"host": [
+						"{{address}}"
+					],
+					"path": [
+						"locallink",
+						"1.0.0",
+						"print"
+					],
+					"query": [
+						{
+							"key": "tid",
+							"value": "{{tid}}"
+						}
+					]
+				},
+				"description": "Request to print on terminal.\n\nThe format has a few parameters.\n\n{ Text to print, font size, alignment, style } which should all be sent as string values\n\nAvailable font sizes are:\n\n1 - Small 5 - Normal 9 - Big\n\nAvailable alignments are:\n\nL - Align left R - Align right C - Align in center S - Split (Align one text on left and the other on the right) QR - QR code\n\nAvailable styles are:\n\nN - Normal text B - Bold I - Italic U - Underline\n\nDefault values are font size 5, aligned left and normal text.\n\nSpecial commands :\n\n{} - Adds an empty line.\n\n{“logo”} - Displays the logo on the receipt."
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{authcode}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "tid",
+			"value": "1852196400"
+		},
+		{
+			"key": "authcode",
+			"value": "8139526701234221"
+		},
+		{
+			"key": "address",
+			"value": "192.168.20.180:8080"
+		}
+	]
+}
